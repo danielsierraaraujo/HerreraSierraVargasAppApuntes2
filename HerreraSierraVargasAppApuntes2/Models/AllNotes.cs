@@ -43,3 +43,4 @@ namespace HerreraSierraVargasAppApuntes2.Models
                 Notes.Add(note);
         }
     }
+}
