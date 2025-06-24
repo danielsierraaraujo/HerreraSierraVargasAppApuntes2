@@ -4,8 +4,15 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:HerreraSierraVargasAppApuntes2"
+    xmlns:views="clr-namespace:HerreraSierraVargasAppApuntes2.Views"
     Shell.FlyoutBehavior="Disabled"
     Title="HerreraSierraVargasAppApuntes2">
+
+    <TabBar>
+        <ShellContent Title="Notas" ContentTemplate="{DataTemplate views:AllNotesPage}" />
+        <ShellContent Title="About" ContentTemplate="{DataTemplate views:AboutPage}" />
+    </TabBar>
+
 
     <ShellContent
         Title="Home"

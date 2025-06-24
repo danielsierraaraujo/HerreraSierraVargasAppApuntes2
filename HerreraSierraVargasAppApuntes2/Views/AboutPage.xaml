@@ -15,6 +15,5 @@
                    HeightRequest="64" />
             <Label FontSize="22" FontAttributes="Bold" Text="{Binding Name}" VerticalOptions="End" />
         </HorizontalStackLayout>
-        <Label Text="{Binding Description}" />
     </VerticalStackLayout>
 </ContentPage>

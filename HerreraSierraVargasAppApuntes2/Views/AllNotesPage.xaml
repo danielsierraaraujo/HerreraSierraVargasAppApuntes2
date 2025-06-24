@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:HerreraSierraVargasAppApuntes2.Models"
-             x:Class="HerreraSierraVargasAppApuntes2.Views.AllNotesPage"
-             Title="Las Notas de Daniel Sierra"
-             x:DataType="models:AllNotes">
+             xmlns:viewmodels="clr-namespace:HerreraSierraVargasAppApuntes2.ViewModels"
+             x:Class="HerreraSierraVargasAppApuntes2.Views.AllNotesPage">
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Clicked="Add_Clicked" IconImageSource="{FontImage Glyph='+', Color=Black, Size=22}" />
-    </ContentPage.ToolbarItems>
+    <ContentPage.BindingContext>
+        <viewmodels:NotesViewModel />
+    </ContentPage.BindingContext>
 
+    <VerticalStackLayout Padding="10">
+        <Entry Placeholder="Escribe una nueva nota"
+           Text="{Binding NewNoteText}" />
 
-    <CollectionView x:Name="notesCollection"
-                        ItemsSource="{Binding Notes}"
-                        Margin="20"
-                        SelectionMode="Single"
-                        SelectionChanged="notesCollection_SelectionChanged">
+        <Button Text="Agregar nota"
+            Command="{Binding AddNoteAsyncCommand}" />
 
+        <CollectionView ItemsSource="{Binding Notes}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="Gray" Margin="5" Padding="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-        <CollectionView.ItemsLayout>
-            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
-        </CollectionView.ItemsLayout>
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Text}" FontSize="16"/>
+                                <Label Text="{Binding Date, StringFormat='{}{0:G}'}" FontSize="12" TextColor="Gray"/>
+                            </VerticalStackLayout>
 
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="models:Note">
-                <StackLayout>
-                    <Label Text="{Binding Text}" FontSize="22"/>
-                    <Label Text="{Binding Date}" FontSize="14" TextColor="Black"/>
-                </StackLayout>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+                            <Button Grid.Column="1"
+                                Text="🗑️"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:NotesViewModel}}, Path=DeleteNoteAsyncCommand}"
+                                CommandParameter="{Binding .}" />
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
 </ContentPage>
