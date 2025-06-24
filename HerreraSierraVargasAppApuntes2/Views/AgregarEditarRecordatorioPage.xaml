@@ -1,0 +1,26 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:HerreraSierraVargasAppApuntes2.ViewModels"
+             x:Class="HerreraSierraVargasAppApuntes2.Views.AgregarEditarRecordatorioPage"
+             Title="Agregar/Editar Recordatorio">
+
+    <ContentPage.BindingContext>
+        <viewmodels:AgregarEditarRecordatorioViewModel/>
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="Texto:"/>
+        <Entry Text="{Binding RecordatorioActual.Texto}" Placeholder="Ingrese el texto"/>
+
+        <Label Text="Fecha:"/>
+        <DatePicker Date="{Binding FechaSeleccionada, Mode=TwoWay}" />
+
+        <Label Text="Hora:"/>
+        <TimePicker Time="{Binding HoraSeleccionada, Mode=TwoWay}" />
+
+        <Label Text="Activo:"/>
+        <Switch IsToggled="{Binding RecordatorioActual.Activo, Mode=TwoWay}" />
+
+        <Button Text="Guardar" Command="{Binding GuardarCommand}" />
+    </VerticalStackLayout>
+</ContentPage>

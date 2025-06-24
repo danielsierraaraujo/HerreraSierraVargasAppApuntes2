@@ -1,0 +1,41 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:HerreraSierraVargasAppApuntes2.ViewModels"
+             x:Class="HerreraSierraVargasAppApuntes2.Views.RecordatoriosPage"
+             Title="Recordatorios">
+
+    <ContentPage.BindingContext>
+        <viewmodels:RecordatoriosViewModel/>
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Padding="10" Spacing="10">
+        <CollectionView ItemsSource="{Binding ListaRecordatorios}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="Gray" Padding="10" Margin="5">
+                        <HorizontalStackLayout VerticalOptions="Center" Spacing="15">
+                            <VerticalStackLayout HorizontalOptions="StartAndExpand">
+                                <Label Text="{Binding Texto}" FontAttributes="Bold"/>
+                                <Label Text="{Binding FechaHora}" />
+                                <!-- Aquí mostramos ActivoTexto -->
+                                <Label Text="{Binding ActivoTexto}" />
+                            </VerticalStackLayout>
+
+                            <Button Text="Editar"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:RecordatoriosViewModel}}, Path=EditarCommand}"
+                                    CommandParameter="{Binding .}"
+                                    VerticalOptions="Center"/>
+
+                            <Button Text="Borrar"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:RecordatoriosViewModel}}, Path=EliminarCommand}"
+                                    CommandParameter="{Binding .}"
+                                    VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Text="Agregar Recordatorio" Command="{Binding AgregarCommand}" Margin="0,10,0,0"/>
+    </VerticalStackLayout>
+</ContentPage>
