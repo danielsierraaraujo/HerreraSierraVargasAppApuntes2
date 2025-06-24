@@ -1,49 +1,62 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:namespace="clr-namespace:HerreraSierraVargasAppApuntes2.ViewModels"
+             xmlns:viewmodels="clr-namespace:HerreraSierraVargasAppApuntes2.ViewModels"
              x:Class="HerreraSierraVargasAppApuntes2.Views.WeatherView"
-             Title="WeatherView">
+             BackgroundColor="#3C8CE7">
+
     <ContentPage.BindingContext>
-        <namespace:WeatherViewModel />
+        <viewmodels:WeatherViewModel />
     </ContentPage.BindingContext>
-    <VerticalStackLayout>
-        <Entry 
-            x:Name="LabelLatitude"
-            Text="{Binding WeatherDataInfo.latitude}"
-            />
-        <Entry 
-            x:Name="LabelLongitude"
-            Text="{Binding WeatherDataInfo.longitude}"
-            />
-        <Button
-            x:Name="RecalculateWeather"
-            Text="Recalculate"
-            Command="{Binding RecalculateWeather}"
-            />
-        <Label 
-            x:Name="LabelTemperature"
-            Text="{Binding WeatherDataInfo.current.temperature_2m}"
-            />
-        <Label 
-            x:Name="LabelTemperatureUnit"
-            Text="{Binding WeatherDataInfo.current_units.temperature_2m}"
-            />
-        <Label 
-            x:Name="LabelHumidity"
-            Text="{Binding WeatherDataInfo.current.relative_humidity_2m}"
-            />
-        <Label 
-            x:Name="LabelHumidityUnit"
-            Text="{Binding WeatherDataInfo.current_units.relative_humidity_2m}"
-            />
-        <Label x:Name="LabelTemperatureFull">
-            <Label.Text>
-                <MultiBinding StringFormat="{}{0}{1}">
-                    <Binding Path="WeatherDataInfo.current.rain" />
-                    <Binding Path="WeatherDataInfo.current_units.rain" />
-                </MultiBinding>
-            </Label.Text>
-        </Label>
+
+    <VerticalStackLayout Padding="30" Spacing="20">
+
+        
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Image Source="location_icon.png" WidthRequest="20" HeightRequest="20"/>
+            <Label Text="Ubicación actual" TextColor="White" FontSize="18" Margin="5,0,0,0"/>
+        </HorizontalStackLayout>
+
+
+        <Label Text="{Binding WeatherDataInfo.current.temperature_2m, StringFormat='{0}°'}"
+               TextColor="White"
+               FontSize="80"
+               FontAttributes="Bold"
+               HorizontalOptions="Center" />
+
+
+        <Label Text="Clima actual" TextColor="White" FontSize="18" HorizontalOptions="Center" />
+
+
+        <Image Source="sunny_icon.png" WidthRequest="120" HeightRequest="120" HorizontalOptions="Center"/>
+
+
+        <Frame BackgroundColor="#1E3C72" CornerRadius="20" Padding="15" Margin="0,20,0,0">
+            <VerticalStackLayout Spacing="10">
+
+                <HorizontalStackLayout>
+                    <Label Text="Humedad:" TextColor="White" FontSize="16" />
+                    <Label Text="{Binding WeatherDataInfo.current.relative_humidity_2m, StringFormat=' {0}%'}"
+                           TextColor="White" FontSize="16" FontAttributes="Bold"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout>
+                    <Label Text="Lluvia:" TextColor="White" FontSize="16" />
+                    <Label Text="{Binding WeatherDataInfo.current.rain, StringFormat=' {0}mm'}"
+                           TextColor="White" FontSize="16" FontAttributes="Bold"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout>
+                    <Label Text="Hora del reporte:" TextColor="White" FontSize="16" />
+                    <Label Text="{Binding WeatherDataInfo.current.time}" TextColor="White" FontSize="16" />
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+        </Frame>
+
+        
+        <Button Text="Actualizar clima" Command="{Binding RecalculateWeather}" BackgroundColor="#1E3C72"
+                TextColor="White" CornerRadius="20" Padding="10,5" />
+
     </VerticalStackLayout>
 </ContentPage>

@@ -10,9 +10,9 @@
 
     <TabBar>
         <ShellContent Title="Notas" ContentTemplate="{DataTemplate views:AllNotesPage}" />
+        <ShellContent Title="Clima" ContentTemplate="{DataTemplate views:WeatherView}" />
         <ShellContent Title="About" ContentTemplate="{DataTemplate views:AboutPage}" />
     </TabBar>
-
 
     <ShellContent
         Title="Home"
