@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:HerreraSierraVargasAppApuntes2.ViewModels"
-             x:Class="HerreraSierraVargasAppApuntes2.Views.AllNotesPage">
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:HerreraSierraVargasAppApuntes2.ViewModels" x:Class="HerreraSierraVargasAppApuntes2.Views.AllNotesPage" Title="Notas">
 
     <ContentPage.BindingContext>
         <viewmodels:NotesViewModel />
     </ContentPage.BindingContext>
 
     <VerticalStackLayout Padding="10">
+
         <Entry Placeholder="Escribe una nueva nota"
            Text="{Binding NewNoteText}" />
 
@@ -26,8 +24,9 @@
                             </Grid.ColumnDefinitions>
 
                             <VerticalStackLayout>
-                                <Label Text="{Binding Text}" FontSize="16"/>
-                                <Label Text="{Binding Date, StringFormat='{}{0:G}'}" FontSize="12" TextColor="Gray"/>
+                                <Editor Text="{Binding Text, Mode=TwoWay}" FontSize="16" />
+                                <Label Text="{Binding Date, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                                   FontSize="12" TextColor="Gray"/>
                             </VerticalStackLayout>
 
                             <Button Grid.Column="1"
@@ -39,5 +38,8 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
+        <Button Text="Guardar Cambios"
+            Command="{Binding SaveNotesCommand}" />
     </VerticalStackLayout>
 </ContentPage>

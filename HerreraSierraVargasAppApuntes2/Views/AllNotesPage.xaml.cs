@@ -1,4 +1,3 @@
-using Microsoft.Maui.Controls;
 using HerreraSierraVargasAppApuntes2.ViewModels;
 
 namespace HerreraSierraVargasAppApuntes2.Views
@@ -8,7 +7,14 @@ namespace HerreraSierraVargasAppApuntes2.Views
         public AllNotesPage()
         {
             InitializeComponent();
-            BindingContext = new NotesViewModel();
+        }
+        protected override async void OnDisappearing()
+        {
+            base.OnDisappearing();
+            if (BindingContext is NotesViewModel vm)
+            {
+                await vm.SaveNotesAsync();
+            }
         }
     }
 }

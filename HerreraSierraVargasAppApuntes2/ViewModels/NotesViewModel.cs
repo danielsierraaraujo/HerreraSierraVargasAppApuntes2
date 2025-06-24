@@ -1,56 +1,50 @@
-﻿// ViewModels/NotesViewModel.cs
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using HerreraSierraVargasAppApuntes2.Models;
 using HerreraSierraVargasAppApuntes2.Services;
-
+using System.Collections.ObjectModel;
+//con ayuda de chat
 namespace HerreraSierraVargasAppApuntes2.ViewModels
 {
-    public partial class NotesViewModel : ObservableObject
+    public class NotesViewModel : BaseViewModel
     {
-        [ObservableProperty]
-        private ObservableCollection<Note> notes;
-
-        [ObservableProperty]
-        private string newNoteText;
+        public ObservableCollection<Note> Notes { get; set; } = new();
+        public string NewNoteText { get; set; }
 
         public IRelayCommand AddNoteAsyncCommand { get; }
         public IRelayCommand<Note> DeleteNoteAsyncCommand { get; }
+        public IRelayCommand SaveNotesCommand { get; }
 
         public NotesViewModel()
         {
-            Notes = new ObservableCollection<Note>();
             AddNoteAsyncCommand = new RelayCommand(async () => await AddNoteAsync());
             DeleteNoteAsyncCommand = new RelayCommand<Note>(async (note) => await DeleteNoteAsync(note));
+            SaveNotesCommand = new RelayCommand(async () => await SaveNotesAsync());
             LoadNotesAsync();
         }
 
         private async void LoadNotesAsync()
         {
             var notesList = await NotesService.LoadNotesAsync();
+            Notes.Clear();
             foreach (var note in notesList)
-            {
                 Notes.Add(note);
-            }
         }
 
         private async Task AddNoteAsync()
         {
-            if (string.IsNullOrWhiteSpace(NewNoteText)) return;
-
-            var note = new Note
+            if (!string.IsNullOrWhiteSpace(NewNoteText))
             {
-                Filename = Path.GetRandomFileName(),
-                Text = NewNoteText,
-                Date = DateTime.Now
-            };
+                var note = new Note
+                {
+                    Text = NewNoteText,
+                    Date = DateTime.Now
+                };
 
-            Notes.Add(note);
-            NewNoteText = string.Empty;
-
-            await NotesService.SaveNotesAsync(Notes.ToList());
+                Notes.Add(note);
+                await NotesService.SaveNotesAsync(Notes.ToList());
+                NewNoteText = string.Empty;
+                OnPropertyChanged(nameof(NewNoteText));
+            }
         }
 
         private async Task DeleteNoteAsync(Note note)
@@ -60,6 +54,11 @@ namespace HerreraSierraVargasAppApuntes2.ViewModels
                 Notes.Remove(note);
                 await NotesService.SaveNotesAsync(Notes.ToList());
             }
+        }
+
+        public async Task SaveNotesAsync()
+        {
+            await NotesService.SaveNotesAsync(Notes.ToList());
         }
     }
 }
