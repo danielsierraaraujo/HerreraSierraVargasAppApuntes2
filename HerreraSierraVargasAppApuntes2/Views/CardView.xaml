@@ -1,21 +1,50 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentView  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HerreraSierraVargasAppApuntes2.Views.CardView"
-             Title="CardView">
-    <Frame BorderColor="{Binding BorderColor, Source={x:Reference Name=CardControl}}"
-           CornerRadius="10"
-           Padding="10"
-           Margin="10">
-        <StackLayout>
-            <Label Text="{Binding CardTitle, Source={x:Reference Name=CardControl}}"
-                   FontAttributes="Bold"
-                   FontSize="18" />
-            <Label Text="{Binding CardDescription, Source={x:Reference Name=CardControl}}"
-                   FontSize="14" />
-            <Image Source="{Binding IconImageSource, Source={x:Reference Name=CardControl}}"
-                   HeightRequest="50"
-                   WidthRequest="50" />
+              x:Name="CardControl">
+    <Frame
+        CornerRadius="15"
+        Padding="15"
+        Margin="10"
+        HasShadow="True"
+        BorderColor="{Binding BorderColor, Source={x:Reference CardControl}}"
+        BackgroundColor="White">
+
+        <StackLayout Orientation="Horizontal" Spacing="15" VerticalOptions="Center">
+
+            <Frame
+                HeightRequest="80"
+                WidthRequest="80"
+                CornerRadius="40"
+                Padding="0"
+                IsClippedToBounds="True"
+                HasShadow="True"
+                BackgroundColor="LightGray">
+                <Image
+                    Source="{Binding IconImageSource, Source={x:Reference CardControl}}"
+                    Aspect="AspectFill" />
+            </Frame>
+
+            <StackLayout VerticalOptions="Center" Spacing="5">
+                <Label
+                    Text="{Binding CardTitle, Source={x:Reference CardControl}}"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    TextColor="Black" />
+
+                <Label
+                    Text="{Binding CardDeporte, Source={x:Reference CardControl}}"
+                    FontSize="14"
+                    TextColor="Gray"
+                    LineBreakMode="WordWrap" />
+
+                <Label Text="{Binding Age, Source={x:Reference CardControl}}" 
+                       FontSize="14" 
+                       TextColor="Gray" 
+                       LineBreakMode="WordWrap" />
+            </StackLayout>
+
         </StackLayout>
     </Frame>
-</ContentPage>
+</ContentView>

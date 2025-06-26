@@ -6,15 +6,29 @@
              Title="Sobre Nosotros"
              x:DataType="models:About">
 
-    <ContentPage.BindingContext>
-        <models:About />
-    </ContentPage.BindingContext>
 
     <ScrollView>
         <StackLayout>
-            <controls:CardView CardTitle="Slavko Vlasic"
-                               CardDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla elit dolor, convallis non interdum."
-                               IconImageSource="user.png"
+            <controls:CardView CardTitle="Daniel Andrade"
+                               Age="Edad: 21"
+                               CardDeporte="Deporte favorito: Futbol"
+                               IconImageSource="daniel.jpeg"
+                               BorderColor="DarkGray" />
+
+
+
+            <controls:CardView CardTitle="Ricardo Herrera"
+                               Age="Edad: 20"
+                               CardDeporte="Deporte favorito: Futbol" 
+                               IconImageSource="ricky.jpeg"
+                               BorderColor="DarkGray" />
+
+
+
+            <controls:CardView CardTitle="Pablo Vargas"
+                               Age="Edad: 20"
+                               CardDeporte="Deporte favorito: Padel"
+                               IconImageSource="pablo.jpeg"
                                BorderColor="DarkGray" />
         </StackLayout>
     </ScrollView>
