@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HerreraSierraVargasAppApuntes2.Views.CardView"
+             Title="CardView">
+    <Frame BorderColor="{Binding BorderColor, Source={x:Reference Name=CardControl}}"
+           CornerRadius="10"
+           Padding="10"
+           Margin="10">
+        <StackLayout>
+            <Label Text="{Binding CardTitle, Source={x:Reference Name=CardControl}}"
+                   FontAttributes="Bold"
+                   FontSize="18" />
+            <Label Text="{Binding CardDescription, Source={x:Reference Name=CardControl}}"
+                   FontSize="14" />
+            <Image Source="{Binding IconImageSource, Source={x:Reference Name=CardControl}}"
+                   HeightRequest="50"
+                   WidthRequest="50" />
+        </StackLayout>
+    </Frame>
+</ContentPage>
